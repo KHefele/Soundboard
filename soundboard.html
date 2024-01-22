@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Soundboard</title>
+        <link rel="icon" type="image/png" href="/favicon.png" >
+    </head>
+
+    <body>
+        <div id="flexBox-Container">
+        </div> 
+    </body>
+
+    <style>
+        html, body {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            /* overflow: hidden; */
+            background-color: #202124;
+        }
+
+        #flexBox-Container {
+            position: relative;
+            display: flex;
+            width: 90%;
+            height: 90%;
+            padding: 5%;
+            flex-wrap: wrap;
+            align-items: stretch;
+            justify-content: center;
+        }
+        button {
+            background-color: #3C3C3C;
+            border: none;
+            margin: 5px 5px;
+            border-radius: 4px;
+            cursor:pointer; 
+        }
+        #imgContainer {
+            position:relative; 
+            width: 180px; 
+            height: 170px;
+        }
+        #imgContainer img {
+            position:absolute; 
+            width: 100%; 
+            height: auto; 
+            transform: translate(-50%, 0%); 
+            padding-top: 2%;
+            /* transition: transform 0.03s ease-out; */
+        }
+        div span {
+            position: absolute;
+            top: 11%;
+            z-index: 1;
+            font:25px/25px 'Rockwell Extra Bold',impact;letter-spacing:-1px;
+            text-shadow:0 2px 2px black;
+            text-transform:uppercase;
+            color:#F3D052; 
+            transform: translateX(-50%);
+            /* transition: transform 0.03s ease-out;  */
+        }
+        button:hover {
+            background-color: #474747;
+        }
+
+        /* width */
+        ::-webkit-scrollbar {
+        width: 8px;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+        background: #888;
+        }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+        }
+    </style>
+
+
+    <script language="javascript" type="text/javascript">
+
+        const buttonNames = ["ahaaa", "langweilig", "wow", "ba-dum-tss", "nein-doch", "tusch", "schade", "lacher1", "lacher2", "versteh-nicht", "was-hier-los", "drum-roll"];
+        let hueDeg = 0;
+
+        for (let i = 0; i < buttonNames.length; i++) {
+            
+
+            const flexBoxContainer = document.getElementById("flexBox-Container");
+            const button = document.createElement("button");
+            flexBoxContainer.appendChild(button);
+            button.id = buttonNames[i];
+
+            const div = document.createElement("div");
+            button.appendChild(div);
+            div.id = "imgContainer";
+
+
+
+            const img = document.createElement("img");
+            img.src = "buzzer_oben2.png";
+            img.id = buttonNames[i] + "Buzzer";
+            img.style.filter = "hue-rotate(" + hueDeg + "deg)"; //saturate(200%)
+            div.appendChild(img);
+            
+
+            const imgZwei = document.createElement("img");
+            imgZwei.src = "buzzer_unten.png";
+            div.appendChild(imgZwei);
+            
+
+            const span = document.createElement("span");
+            div.appendChild(span);
+            span.id = buttonNames[i] + "BuzzerText";
+            span.innerHTML = buttonNames[i];
+
+            hueDeg += 130;
+            
+            let timeoutID;
+            button.addEventListener("click", function(){
+
+                buzzerImg = document.getElementById(this.id + "Buzzer");
+                buzzerText = document.getElementById(this.id + "BuzzerText");
+
+                var audioName = "SoundEffects/" + this.id + ".mp3";
+                const audio = new Audio(audioName);
+                audio.addEventListener("canplaythrough", () => audio.play());
+
+
+                buzzerImg.style.transform = "translate(-50%, 15px)";
+                buzzerText.style.transform = "translate(-50%, 15px)";
+
+                timeoutID = setTimeout(() => {
+                    buzzerImg.style.transform = "translate(-50%, 0%)";
+                    buzzerText.style.transform = "translate(-50%, 0px)";
+                }, 400);
+            })
+
+
+        }
+        
+        window.onclick = myFunction;
+
+        function myFunction (){
+            
+            className = document.getElementById(event.target.className)
+
+            if (buttonNames.includes(className) === true)  {
+                console.log("hi")
+            }    
+        }
+    </script>
+
+</html>
