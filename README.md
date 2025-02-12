@@ -1,4 +1,4 @@
-# 🔊 Soundboard
+# Soundboard
 
 This little project was originally created for a **Science Slam** during the colloquium **"111 Jahre Kunstgeschichte an der Philipps-Universität Marburg"**. It provides an entertaining way to enhance presentations and events with fun sound effects.
 
